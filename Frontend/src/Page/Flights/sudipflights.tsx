@@ -53,9 +53,9 @@ const DEALS: SudipFlightDeal[] = [
 ];
 
 const SudipFlights = () => {
-  return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-full mx-auto">
+  return (<>
+    <div className="min-h-screen bg-gray-50 p-6 ">
+      <div className="max-w-full mx-auto mt-30">
         <div className="flex items-center gap-2 mb-4">
           <CheckCircle2 className="w-5 h-5 text-green-600" />
           <h1 className="text-2xl font-semibold text-gray-900">Sudip Flights</h1>
@@ -181,6 +181,7 @@ const SudipFlights = () => {
         </div>
       </div>
     </div>
+      </>
   );
 };
 
