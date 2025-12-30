@@ -1,29 +1,13 @@
-// const express = require("express");
-// const router = express.Router();
-// const { submitInquiry } = require("../controllers/contactController");
-
-// router.post("/", submitInquiry);
-
-// module.exports = router;
-
-// routes/contactRoutes.js
-
-
-import express from "express";
+const express = require("express");
 const router = express.Router();
+const { submitInquiry, getInquiries, deleteInquiry } = require("../controllers/contactController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-// Example POST route for contact form
-router.post("/", (req, res) => {
-  const { name, email, message } = req.body;
+router.post("/", submitInquiry);
 
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
+router.get("/", authMiddleware, getInquiries);
 
-  console.log("New contact message received:", { name, email, message });
 
-  res.status(200).json({ success: true, message: "Message received successfully" });
-});
+router.delete("/:id", authMiddleware, deleteInquiry);
 
-export default router;
-
+module.exports = router;

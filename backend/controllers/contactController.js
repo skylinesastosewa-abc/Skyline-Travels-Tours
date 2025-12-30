@@ -19,3 +19,26 @@ exports.submitInquiry = async (req, res) => {
         });
     }
 };
+
+
+exports.getInquiries = async (req, res) => {
+  try {
+    const inquiries = await Contact.find();
+    res.json(inquiries);
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    res.status(500).json({ success: false, message: "Server error while fetching inquiries" });
+  }
+};
+
+// Delete inquiry (admin only)
+exports.deleteInquiry = async (req, res) => {
+  try {
+    const inquiryId = req.params.id;
+    await Contact.findByIdAndDelete(inquiryId);
+    res.json({ success: true, message: "Inquiry deleted successfully" });
+  } catch (error) {
+    console.error("Delete Error:", error);
+    res.status(500).json({ success: false, message: "Server error while deleting inquiry" });
+  }
+};

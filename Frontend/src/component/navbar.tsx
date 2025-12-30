@@ -24,8 +24,9 @@ const Navbar: React.FC = () => {
   const toggleTheme = () => setIsDark(!isDark);
 
   return (
+    <>
     <header
-      className={`fixed w-full z-50 transition-all duration-500 backdrop-blur-md ${
+      className={`fixed w-full z-50 transition-all duration-500 backdrop-blur-md  ${
         scrolled
           ? "bg-white/80 dark:bg-gray-900/80 shadow-2xl"
           : "bg-white/50 dark:bg-gray-900/50"
@@ -145,7 +146,7 @@ const Navbar: React.FC = () => {
 
               {/* Login Buttons */}
               <Link
-                to="/login"
+                to="/staff-login"
                 className="flex items-center gap-1 px-3 py-1 hover:text-yellow-400 transition-colors"
               >
                 Staff Login
@@ -222,6 +223,8 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
     </header>
+    <div className="h-[128px]" />
+    </>
   );
 };
 

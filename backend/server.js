@@ -7,41 +7,39 @@ dotenv.config();
 
 const app = express();
 
-// ---- CORS FIX FOR EXPRESS 5 ---- //
+// ---- CORS FIX ---- //
 app.use(
-    cors({
-        origin: "http://localhost:5173",
-        methods: ["GET", "POST", "OPTIONS"],
-        allowedHeaders: ["Content-Type"],
-    })
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"], // <-- Add Authorization
+    credentials: true,
+  })
 );
 
 // ---- GLOBAL PRE-FLIGHT HANDLER ---- //
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // <-- Add Authorization
 
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(200);
-    }
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
 
-    next();
+  next();
 });
 
 app.use(express.json());
 
-// Test route
-app.get("/", (req, res) => {
-    res.send("Server OK");
-});
 
 // Connect DB
 connectDB();
 
 // Routes
-const contactRoutes = require("./routes/contactRoutes");
-app.use("/api/contact", contactRoutes);
+app.use("/api/contact", require("./routes/contactRoutes"));
+app.use("/api/admin", require("./routes/adminRoutes"));
+app.use("/api/staff", require("./routes/staffRoutes"));
 
 const PORT = 5005;
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));

@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "cors": "^2.8.5",
-    "lucide-react": "^0.559.0"
+    "cors": "^2.8.5"
   }
 }
